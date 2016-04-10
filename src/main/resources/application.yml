@@ -1,0 +1,8 @@
+spring:
+  profiles.active: development
+  application:
+    name: hello-world
+
+server:
+  port: 8080
+
