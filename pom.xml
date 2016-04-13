@@ -54,6 +54,18 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.shedhack.trace</groupId>
+            <artifactId>trace-request-filter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>com.shedhack.trace</groupId>
+            <artifactId>trace-request-jpa</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>-->
+
     </dependencies>
 
     <properties>
@@ -62,9 +74,12 @@
         <!-- JMeter properties (defaulted - can be override via command line args) -->
         <host>localhost</host>
         <port>8080</port>
+        <docker.image.prefix>${groupId}</docker.image.prefix>
     </properties>
 
     <build>
+
+        <finalName>hello-world</finalName>
         <plugins>
 
             <!-- mvn spring-boot:run -Dserver.port=8081 -->
@@ -199,6 +214,34 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Creates the necessary docker file -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.5</version>
+                <configuration>
+
+                    <!-- You might need to remove dockerHost and let it default. This has been set for boot2docker -->
+                    <!-- When boot2docker starts you'll see, so export them!:
+                            To connect the Docker client to the Docker daemon, please set:
+                            export DOCKER_HOST=tcp://192.168.59.103:2376
+                            export DOCKER_CERT_PATH=/Users/ichishty/.boot2docker/certs/boot2docker-vm
+                            export DOCKER_TLS_VERIFY=1
+                    -->
+                    <dockerHost>https://192.168.59.103:2376</dockerHost>
+                    <imageName>hello-world</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
         </plugins>
 
 
