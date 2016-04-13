@@ -5,7 +5,7 @@
 
     <groupId>com.emc.awg</groupId>
     <artifactId>hello-world</artifactId>
-    <version>1.0.0.b1</version>
+    <version>1.0.0</version>
 
     <description>To run java -jar XXX.jar -Dserver.port=XXXX</description>
     <parent>
