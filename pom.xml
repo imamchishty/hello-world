@@ -5,7 +5,7 @@
 
     <groupId>com.emc.awg</groupId>
     <artifactId>hello-world</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <description>To run java -jar XXX.jar -Dserver.port=XXXX</description>
     <parent>
@@ -31,10 +31,21 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-awg</id>
-            <url>https://api.bintray.com/maven/jenkins-awg/maven/hello-world/;publish=1cle</url>
+            <id>deployment</id>
+            <name>Internal Releases</name>
+            <url>http://dc01-jenkins-01:8081/nexus/content/repositories/releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>Internal Snapshots</name>
+            <url>http://dc01-jenkins-01:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>site</id>
+            <url>dav:http://dc01-jenkins-01:8081/nexus/content/sites/site/${project.groupId}/${project.artifactId}</url>
+        </site>
     </distributionManagement>
+
 
     <dependencies>
 
