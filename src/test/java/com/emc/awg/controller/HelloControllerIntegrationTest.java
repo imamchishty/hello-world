@@ -40,5 +40,9 @@ public class HelloControllerIntegrationTest {
 	public void getHello() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
 		assertThat(response.getBody(), equalTo("Hello World!"));
+
+		for (int i = 0; i < 100; i++) {
+			System.out.println(">>integration test");
+		}
 	}
 }
